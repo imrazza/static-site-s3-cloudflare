@@ -1,26 +1,47 @@
-- name: Deploy to S3
-  run: |
-    aws s3 sync . s3://${{ secrets.S3_BUCKET }} \
-      --delete \
-      --exclude ".git/*" \
-      --exclude ".github/*"
+name: Deploy Static Website to S3
 
-    # Fix HTML content type
-    aws s3 cp s3://${{ secrets.S3_BUCKET }}/ \
-      s3://${{ secrets.S3_BUCKET }}/ \
-      --recursive \
-      --exclude "*" \
-      --include "*.html" \
-      --metadata-directive REPLACE \
-      --content-type text/html
+on:
+  push:
+    branches:
+      - main
 
-    # Fix CSS content type
-    aws s3 cp s3://${{ secrets.S3_BUCKET }}/ \
-      s3://${{ secrets.S3_BUCKET }}/ \
-      --recursive \
-      --exclude "*" \
-      --include "*.css" \
-      --metadata-directive REPLACE \
-      --content-type text/css
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: |
+          # Sync files
+          aws s3 sync . s3://${{ secrets.S3_BUCKET }} \
+            --delete \
+            --exclude ".git/*" \
+            --exclude ".github/*"
+
+          # Fix HTML content type
+          aws s3 cp s3://${{ secrets.S3_BUCKET }}/ \
+            s3://${{ secrets.S3_BUCKET }}/ \
+            --recursive \
+            --exclude "*" \
+            --include "*.html" \
+            --metadata-directive REPLACE \
+            --content-type text/html
+
+          # Fix CSS content type
+          aws s3 cp s3://${{ secrets.S3_BUCKET }}/ \
+            s3://${{ secrets.S3_BUCKET }}/ \
+            --recursive \
+            --exclude "*" \
+            --include "*.css" \
+            --metadata-directive REPLACE \
+            --content-type text/css
