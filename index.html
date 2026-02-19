@@ -1,12 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Site</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>Static Website Hosted on AWS S3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 700px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+
+        .badge {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background-color: #ff9900;
+            color: #000;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.85rem;
+            color: #bbbbbb;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello from S3</h1>
+
+    <div class="container">
+        <h1>🚀 Static Website Successfully Hosted</h1>
+        <p>
+            This website is deployed using 
+            <strong>Amazon S3 Static Website Hosting</strong>.
+        </p>
+        <p>
+            CI/CD automation powered by GitHub Actions.
+        </p>
+
+        <div class="badge">
+            AWS S3 | GitHub Actions | Static Hosting
+        </div>
+
+        <div class="footer">
+            Portfolio Project • Cloud Deployment Demonstration
+        </div>
+    </div>
+
 </body>
 </html>
+
 
 
